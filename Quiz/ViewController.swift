@@ -9,17 +9,43 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    @IBOutlet weak var questionLabel: UILabel!
+    @IBOutlet weak var answerLabel: UILabel!
+    
+    private let questions = ["From what is cognac made?",
+                               "What is 7+7?",
+                               "What is the capital of Vermont?",
+                               "What is ultimate answer of Life?"]
+    private let answers = ["Grapes",
+                             "14",
+                             "Montpelier",
+                             "42"]
+    
+    private var currentQuestionIndex = 0 {
+        didSet {
+            if currentQuestionIndex == questions.count {
+                currentQuestionIndex = 0
+            }
+            questionLabel.text = questions[currentQuestionIndex]
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        currentQuestionIndex = 0
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func showNextQuestion(_ sender: UIButton) {
+        currentQuestionIndex += 1
+        answerLabel.text = "???"
     }
+    
 
-
+    @IBAction func showNextAnswer(_ sender: UIButton) {
+        let answer = answers[currentQuestionIndex]
+        answerLabel.text = answer
+    }
 }
 
